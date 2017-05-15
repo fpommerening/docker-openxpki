@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 BASE="/etc/openxpki/ssl/ca-one/";
 PATH=/opt/myperl/bin:$PATH
