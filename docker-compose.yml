@@ -1,14 +1,24 @@
-openxpki:
-  build: .
-  links:
-    - mysql
-  ports:
-    - 8080:80
-  volumes:
-    - ./certs/:/etc/openxpki/ssl/
-mysql:
-  image: mariadb:10
-  environment:
-    - MYSQL_ROOT_PASSWORD=password
-  volumes:
-    - ./dbData:/var/lib/mysql
+version: '3'
+services:
+  openxpki:
+    build: .
+    depends_on:
+      - mysql
+    ports:
+      - 8080:80
+    volumes:
+      - certs:/etc/openxpki/ssl/
+  mysql:
+    image: mariadb:10
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=openxpki
+      - MYSQL_USER=openxpki
+      - MYSQL_PASSWORD=openxpki_pwd
+    volumes:
+      - dbdata:/var/lib/mysql
+volumes:
+  certs:
+    external: true
+  dbdata:
+    external: true
